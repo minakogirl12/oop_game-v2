@@ -40,7 +40,9 @@
         if(this.activePhrase.checkLetter(letter)){
             this.activePhrase.showMatchedLetter(letter);
             this.disableLetter(letter, 'chosen');
-            this.checkForWin();
+            if(this.checkForWin()){
+                this.gameOver();
+            }
             
         }
         //else remove life and greys out letter
@@ -84,7 +86,7 @@
         else{
             //select all the hearts
             let lives = document.querySelectorAll('#scoreboard li');
-            lives[(this.missed-1)].firstElementChild.src = 'images/lostHeart.png'
+            lives[(this.missed-1)].firstElementChild.src = 'images/lostHeart.png';
         }
     }
 
@@ -105,7 +107,6 @@
 
 /**
  * Function that shows the overlay and a message if the player won or lost
- * Decimal info for emojis from https://www.quackit.com/character_sets/emoji
  */
     gameOver(){
 
@@ -121,6 +122,29 @@
             overlay.className = 'lose';
             message.textContent = "Sorry, you've lost. Maybe next time ";
         }
+    }
+
+    /**
+     * Function that resets the gameboard
+     */
+    reset(){
+
+        //re-enable all buttons
+        const letters = document.getElementsByClassName('key');
+        for(let i = 0; i < letters.length; i++){
+           letters[i].disabled = 'false';
+           letters[i].className = 'key';
+        }
+
+        //change all hearts to full
+        //select all the hearts
+        let lives = document.querySelectorAll('#scoreboard li');
+        for(let i = 0; i < lives.length; i++){
+            lives[i].src = 'images/liveHeart.png';
+        }
+
+        //remove li elements from ul
+        this.activePhrase.removePhraseFromDisplay();
     }
 
 

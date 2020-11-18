@@ -38,8 +38,8 @@
      * @param {*} letter a single character variable
      */
     checkLetter(letter){
-        //check for the letter
-        if(document.querySelectorAll('.' + letter)){
+        //check for the letter in the entire phrase
+        if(document.querySelectorAll(`.${letter}`).length !=  0){
             return true;
         }
         else{
