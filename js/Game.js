@@ -34,8 +34,38 @@
     }
 
 
-    handleInteraction(){
+    handleInteraction(letter){
+        //check if letter exist in the phrase if letter exists and reveals to the board
+        //and greys out the letter
+        if(this.activePhrase.checkLetter(letter)){
+            this.activePhrase.showMatchedLetter(letter);
+            this.disableLetter(letter, 'chosen');
+            this.checkForWin();
+            
+        }
+        //else remove life and greys out letter
+        else{
 
+            this.removeLife();
+            this.disableLetter(letter, 'wrong');
+        
+        }
+    }
+
+    /**
+     * Function to disable chosen letter and change the class name
+     * @param {*} letter the letter chosen by the user
+     * @param {*} elemnentClass new class name for the button 
+     */
+    disableLetter(letter, elemnentClass){
+        const letters = document.getElementsByClassName('key');
+        for(let i = 0; i < letters.length; i++){
+            if(letters[i].textContent == letter){
+                letters[i].disabled = 'true';
+                letters[i].className = elemnentClass;
+                break;
+            }
+        }
     }
 
     /**
@@ -75,17 +105,21 @@
 
 /**
  * Function that shows the overlay and a message if the player won or lost
+ * Decimal info for emojis from https://www.quackit.com/character_sets/emoji
  */
     gameOver(){
 
         let overlay = document.getElementById('overlay');
+        let message = document.getElementById('game-over-message');
         overlay.style.display = '';
 
         if(this.checkForWin()){
             overlay.className = 'win';
+            message.textContent = "Congratulations! You've won the game."; 
         }
         else{
             overlay.className = 'lose';
+            message.textContent = "Sorry, you've lost. Maybe next time ";
         }
     }
 
