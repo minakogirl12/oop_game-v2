@@ -130,7 +130,7 @@
     reset(){
 
         //re-enable all buttons
-        const letters = document.getElementsByClassName('key');
+        const letters = document.querySelectorAll('#qwerty button');
         for(let i = 0; i < letters.length; i++){
            letters[i].disabled = 'false';
            letters[i].className = 'key';
@@ -138,13 +138,11 @@
 
         //change all hearts to full
         //select all the hearts
-        let lives = document.querySelectorAll('#scoreboard li');
+        let lives = document.querySelectorAll('.tries');
         for(let i = 0; i < lives.length; i++){
-            lives[i].src = 'images/liveHeart.png';
+            lives[i].firstElementChild.src = 'images/liveHeart.png';
         }
 
-        //remove li elements from ul
-        this.activePhrase.removePhraseFromDisplay();
     }
 
 
